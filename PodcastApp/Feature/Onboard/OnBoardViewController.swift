@@ -8,9 +8,13 @@
 import SnapKit
 import UIKit
 
+protocol OnBoarViewControllerProtocol: AnyObject {}
+
 final class OnBoardViewController: UIViewController {
+    var presenter: OnBoardPresenterProtocol?
+
     override func loadView() {
-        let onBoardView = OnBoardView()
+        let onBoardView = OnBoardView(self)
         view = onBoardView
         onBoardView.delegate = self
     }
@@ -21,10 +25,13 @@ final class OnBoardViewController: UIViewController {
 }
 
 extension OnBoardViewController: OnBoardViewProtocol {
-    func onTappedListenButton() {}
+    func onTappedListenButton() {
+        presenter?.checkAndNavigateTestPage()
+    }
 }
 
+extension OnBoardViewController: OnBoarViewControllerProtocol {}
 
- #Preview {
-    OnBoardViewController()
- }
+// #Preview {
+//    OnBoardViewController()
+// }

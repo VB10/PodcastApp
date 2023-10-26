@@ -13,12 +13,13 @@ protocol OnBoardViewProtocol {
     func onTappedListenButton()
 }
 
-class OnBoardView: UIView {
+class OnBoardView<T: OnBoardViewController>: UIView {
     private let profileTitle: String = "Podcaster"
     private let profileSubTitle: String = "Discover your favorite podcast & listen to them anywhere!"
     private let listingTitle: String = "Start Listing"
 
     var delegate: OnBoardViewProtocol?
+    let controller: T
 
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView(image: .imagePodcaster)
@@ -82,7 +83,8 @@ class OnBoardView: UIView {
         self.delegate?.onTappedListenButton()
     }
 
-    init() {
+    init(_ controller: T) {
+        self.controller = controller
         super.init(frame: .zero)
 
         /// PART:2
